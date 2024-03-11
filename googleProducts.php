@@ -93,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
         throw new Exception('Invalid or missing JSON data.');
     }
     if(empty($productData['ProductID'])|| !is_numeric($productData['ProductID'])) {
-        throw new Exception('enter valid user id');
+        throw new Exception('enter valid product id');
     }
     
     //setting product id to local variable

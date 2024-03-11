@@ -45,6 +45,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
     //getting input from client and decoding json data 
     $commentData = json_decode(file_get_contents("php://input"), true);
 
+    if(!$commentData){
+        throw new Exception('Invalid or missing JSON data.');
+    }
+
     if(!is_numeric($commentData['CommentID'])||!is_numeric($commentData['UserID'])|| !is_numeric($commentData['ProductID'])|| !is_numeric($commentData['user_rating'])|| empty($commentData['comment_images'])|| empty($commentData['comment_text'])){
         throw new Exception('invalid input');
     }
@@ -55,7 +59,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
     $userRating = $commentData['user_rating'];
     $commentImages = $commentData['comment_images'];
     $CommentText = $commentData['comment_text'];
-
+    if($userRating<1||$userRating>5){
+        throw new Exception("enter rating between 1 to 5");
+    }
+    
     $searchQuery = $pdo->prepare('SELECT * FROM user_comments WHERE CommentID = ?');
     $searchQuery->execute([$commentID]);
     $result = $searchQuery->fetch(PDO::FETCH_ASSOC);

@@ -111,7 +111,7 @@ if($_SERVER['REQUEST_METHOD'] === 'DELETE'){
     //query to delete data 
     $deleteQuery = $pdo->prepare('DELETE FROM google_carts WHERE cartID=?');
     $deleteQuery->execute([$cartID]);
-    echo json_encode(['message' => 'Order deleted successfully']);
+    echo json_encode(['message' => 'Cart Data deleted successfully']);
 } catch (Exception $e){
     http_response_code(400); // Bad Request
     echo json_encode(['error' => $e->getMessage()]);
